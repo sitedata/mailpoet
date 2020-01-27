@@ -32,7 +32,14 @@ export const initBlocks = () => {
 
   categories.push({ slug: 'fields', title: MailPoet.I18n.t('fieldsBlocksCategory') });
   categories.push({ slug: 'custom-fields', title: MailPoet.I18n.t('customFieldsBlocksCategory') });
+  if (MailPoet.FeaturesController.isSupported('form-editor-phase2')) {
+    categories.push({ slug: 'layout', title: MailPoet.I18n.t('layoutBlocksCategory') });
+  }
   setCategories(categories);
+
+  if (!MailPoet.FeaturesController.isSupported('form-editor-phase2')) {
+    divider.settings.category = 'fields';
+  }
 
   registerBlockType(divider.name, divider.settings);
   registerBlockType(email.name, email.settings);
