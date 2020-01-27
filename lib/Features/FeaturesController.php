@@ -9,11 +9,13 @@ class FeaturesController {
   // Define features below in the following form:
   //   const FEATURE_NAME_OF_FEATURE = 'name-of-feature';
   const NEW_DEFAULT_LIST_NAME = 'new-default-list-name';
+  const FORM_EDITOR_PHASE_2 = 'form-editor-phase2';
 
   // Define feature defaults in the array below in the following form:
   //   self::FEATURE_NAME_OF_FEATURE => true,
   private $defaults = [
     self::NEW_DEFAULT_LIST_NAME => false,
+    self::FORM_EDITOR_PHASE_2 => false,
   ];
 
   /** @var array */
