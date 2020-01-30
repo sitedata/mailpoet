@@ -39,7 +39,7 @@ class Checkbox extends Base {
 
       $html .= $fieldValidation;
 
-      $html .= ' /> ' . esc_attr($option['value']);
+      $html .= ' /> ' . $this->wp->escAttr($option['value']);
 
       $html .= '</label>';
     }
