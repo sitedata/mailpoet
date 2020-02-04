@@ -120,7 +120,6 @@ class Newsletters extends APIEndpoint {
     if ($newsletter) {
       $response = $this->newslettersResponseBuilder->build($newsletter);
       $previewUrl = NewsletterUrl::getViewInBrowserUrl(
-        NewsletterUrl::TYPE_LISTING_EDITOR,
         (object)[
           'id' => $newsletter->getId(),
           'hash' => $newsletter->getHash(),
@@ -148,12 +147,7 @@ class Newsletters extends APIEndpoint {
         ->withTotalSent()
         ->withStatistics($this->woocommerceHelper);
 
-      $previewUrl = NewsletterUrl::getViewInBrowserUrl(
-        NewsletterUrl::TYPE_LISTING_EDITOR,
-        $newsletter,
-        Subscriber::getCurrentWPUser()
-      );
-
+      $previewUrl = NewsletterUrl::getViewInBrowserUrl($newsletter, Subscriber::getCurrentWPUser());
       $newsletter = $this->wp->applyFilters('mailpoet_api_newsletters_get_after', $newsletter->asArray());
       $newsletter['preview_url'] = $previewUrl;
       return $this->successResponse($newsletter);
@@ -277,12 +271,7 @@ class Newsletters extends APIEndpoint {
     $this->wp->doAction('mailpoet_api_newsletters_save_after', $newsletter);
     $this->authorizedEmailsController->onNewsletterUpdate($newsletter, $oldNewsletter);
 
-    $previewUrl = NewsletterUrl::getViewInBrowserUrl(
-      NewsletterUrl::TYPE_LISTING_EDITOR,
-      $newsletter,
-      Subscriber::getCurrentWPUser()
-    );
-
+    $previewUrl = NewsletterUrl::getViewInBrowserUrl($newsletter, Subscriber::getCurrentWPUser());
     return $this->successResponse($newsletter->asArray(), ['preview_url' => $previewUrl]);
   }
 
@@ -435,11 +424,7 @@ class Newsletters extends APIEndpoint {
       $newsletter->body = $this->emoji->encodeForUTF8Column(MP_NEWSLETTERS_TABLE, 'body', $newsletter->body);
       $newsletter->save();
       $subscriber = Subscriber::getCurrentWPUser();
-      $previewUrl = NewsletterUrl::getViewInBrowserUrl(
-        NewsletterUrl::TYPE_LISTING_EDITOR,
-        $newsletter,
-        $subscriber
-      );
+      $previewUrl = NewsletterUrl::getViewInBrowserUrl($newsletter, $subscriber);
       $publicPreviewUrl = NewsletterUrl::getViewInBrowserUrl($newsletter);
       // strip protocol to avoid mix content error
       $previewUrl = preg_replace('{^https?:}i', '', $previewUrl);
@@ -569,12 +554,7 @@ class Newsletters extends APIEndpoint {
       }
 
       // get preview url
-      $newsletter->previewUrl = NewsletterUrl::getViewInBrowserUrl(
-        NewsletterUrl::TYPE_LISTING_EDITOR,
-        $newsletter,
-        $subscriber = null,
-        $queue
-      );
+      $newsletter->previewUrl = NewsletterUrl::getViewInBrowserUrl($newsletter, $subscriber = null, $queue);
 
       $data[] = $this->wp->applyFilters('mailpoet_api_newsletters_listing_item', $newsletter->asArray());
     }
