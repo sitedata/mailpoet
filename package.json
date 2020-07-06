@@ -20,7 +20,7 @@
     "test": "mocha --require @babel/register tests/javascript/**/*.spec.js"
   },
   "dependencies": {
-    "@babel/runtime": "^7.4.5",
+    "@babel/runtime": "^7.10.2",
     "@babel/runtime-corejs3": "^7.5.5",
     "@wordpress/block-editor": "^3.5.0",
     "@wordpress/blocks": "^6.10.0",
