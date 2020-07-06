@@ -47,7 +47,7 @@
     "lodash": "^4.17.15",
     "moment": "^2.22.1",
     "mousetrap": "^1.6.3",
-    "papaparse": "4.1.1",
+    "papaparse": "4.6.3",
     "parsleyjs": "^2.8.1",
     "prop-types": "^15.6.2",
     "react": "^16.10.2",
